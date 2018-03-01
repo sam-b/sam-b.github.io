@@ -2,7 +2,7 @@
 
 Systems and security nerd, find me about the place:
 
-Twitter: [https://twitter.com/_samdb_](https://twitter.com/\_samdb_)    
+Twitter: [https://twitter.com/\_samdb_](https://twitter.com/_samdb_)    
 Github: [https://github.com/sam-b](https://github.com/sam-b)
 
 <ul>
