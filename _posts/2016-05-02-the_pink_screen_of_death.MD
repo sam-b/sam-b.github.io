@@ -1,5 +1,4 @@
 ---
-layout: post
 title: 'My first Windows driver: Creating the Pink Screen Of Death'
 ---
 
