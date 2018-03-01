@@ -1,10 +1,14 @@
+---
+title: My first Windows driver: Creating the Pink Screen Of Death
+---
+
 So a while ago I saw a cool blog post from [Mark Russinovich](https://twitter.com/markrussinovich) - [“Blue Screens” in Designer Colors with One Click](https://blogs.technet.microsoft.com/markrussinovich/2011/01/09/blue-screens-in-designer-colors-with-one-click/) where he changed the colors of the infamous BSOD, I went to look at the source of NotMyFault and soon found that everything but the code responsible for the color change was included :( [@ptsecurity_uk](https://twitter.com/PTsecurity_UK) has also looked at reversing Mark's code in the past and published some details on their blog: [Customizing Blue Screen of Death](http://blog.ptsecurity.com/2012/06/customizing-blue-screen-of-death.html) but again this didn't include buildable and runnable code :(
 
 So the goal for this post is too create a simple driver which supports two different IOCTL codes (explained below) which when triggered in the correct order cause Windows to crash and then show a screen which looks like the one below.
 ![](/content/images/2016/09/psod-1-2.PNG)
 
 All the code for this post can be found [here](https://github.com/sam-b/PSOD).
-####Creating a driver
+#### Creating a driver
 To follow along with this you'll need a reasonably new version of Visual Studio and the Driver Development Kit installed. We start off by creating a new creating a new project with type 'Visual C++'->'Driver'->'WDF'(Windows Driver Framework)->'Kernel Mode Driver, Empty', then pick a name and click 'OK'. Now add a new file to the 'Source Files' directory called 'Driver.c', let's start by including the header files we will need.
 
 <pre>
