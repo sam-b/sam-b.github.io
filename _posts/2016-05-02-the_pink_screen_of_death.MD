@@ -6,7 +6,7 @@ So the goal for this post is too create a simple driver which supports two diffe
 ![](/content/images/2016/09/psod-1-2.PNG)
 
 All the code for this post can be found [here](https://github.com/sam-b/PSOD).
-#### Creating a driver
+## Creating a driver
 To follow along with this you'll need a reasonably new version of Visual Studio and the Driver Development Kit installed. We start off by creating a new creating a new project with type 'Visual C++'->'Driver'->'WDF'(Windows Driver Framework)->'Kernel Mode Driver, Empty', then pick a name and click 'OK'. Now add a new file to the 'Source Files' directory called 'Driver.c', let's start by including the header files we will need.
 
 <pre>
@@ -51,7 +51,7 @@ NTSTATUS KmdfPSODEvtDeviceAdd(_In_ WDFDRIVER Driver, _Inout_ PWDFDEVICE_INIT Dev
 }
 </pre>
 We don't have special requirements for our driver so we just create it as a device with no special attributes. Now we should be able to build the driver which currently does nothing.
-####Using a driver
+##Using a driver
 In order to use our driver we need to enable test signing by running the following command in an Administrator command prompt.
 <pre>
 bcdedit.exe -set TESTSIGNING ON 
@@ -60,7 +60,7 @@ In order to register and start the driver I used [OSRLoader](https://www.osronli
 
 ![](/content/images/2016/09/psod_osrloader-1.PNG)
 
-#### Changing the BSOD
+## Changing the BSOD
 In order to work how Mark's myfault.sys driver did the color change I needed to do some reversing. I started by opening it up in IDA and using my 'totes 1337' reversing skills went straight to the 'strings' subview. I immediately saw the string 'Myfault Color Switcher':
 ![](/content/images/2016/09/psod_my_fault_strings.PNG)
 There was only one cross reference to the string in the binary and it was exactly the function I was looking for.
@@ -125,7 +125,7 @@ Now if we rebuild and then re-register and start the service, we see this:
 
 ![](/content/images/2016/09/psod-3.PNG)
 
-#### Creating IOCTL handlers
+## Creating IOCTL handlers
 Now we have the driver behaviour we want but it's all in the 'DriverEntry' function, so this non-useful driver is currently rather undriver like. 
 
 In Windows the [DeviceIOControl](https://msdn.microsoft.com/en-gb/library/windows/desktop/aa363216(v=vs.85).aspx) function provides a generic interface to drivers, when the function is called the I/O Manager will create an [IRP](https://msdn.microsoft.com/en-us/library/windows/hardware/ff550694(v=vs.85).aspx) (I/O Request Packet) which it delivers to the device driver, the IRP is just a structure which encapsulates the I/O Request and maintains its request status. The IRP is then passed down the Windows driver stack until a driver that can handle it is found.
@@ -312,7 +312,7 @@ NTSTATUS IrpNotImplementedHandler(IN PDEVICE_OBJECT DeviceObject, IN PIRP Irp) {
 
 With this done it should be possible to rebuild the driver, register it as a service and start it. Nothing should happen until we start sending it IOCTLs. The full code for the driver can be found [here](https://github.com/sam-b/PSOD/blob/master/PSOD/PSOD/Driver.c).
 
-#### Sending IOCTLs
+## Sending IOCTLs
 
 In order to send IOCTLs to our driver once it has started we need two functions, one to get a handle to the driver and another to send the IOCTL. I used the following functions which were taken from this [gist](https://gist.github.com/santa4nt/11068180) and which provide simple python function wrappers around some ctypes magic used to directly call the needed Windows API functions.
 

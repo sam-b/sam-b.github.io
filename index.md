@@ -1,10 +1,9 @@
-## Welcome to GitHub Pages
+## Almost Useful
 
-You can use the [editor on GitHub](https://github.com/sam-b/sam-b.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+Systems and security nerd, stalk me about the place:
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
+Twitter: https://twitter.com/\_samdb_ 
+Github: https://github.com/sam-b
 
 <ul>
   {% for post in site.posts %}
